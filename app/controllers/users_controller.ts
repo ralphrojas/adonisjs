@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { createUserValidator, updateUserValidator } from '#validators/user_validator'
-import vine from '@vinejs/vine'
 
 export default class UsersController {
   async index({ response }: HttpContext) {

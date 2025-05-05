@@ -29,7 +29,6 @@ router.delete('/users/:id', [UsersController, 'destroy'])
 router
   .group(() => {
     router.get('/projects', [ProjectsController, 'index'])
-    router.post('/projects', [ProjectsController, 'store'])
     router.get('/projects/:id', [ProjectsController, 'show'])
     router.put('/projects/:id', [ProjectsController, 'update'])
     router.delete('/projects/:id', [ProjectsController, 'destroy'])

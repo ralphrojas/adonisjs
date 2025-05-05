@@ -13,44 +13,22 @@ export default class ProjectsController {
     return response.json(projects)
   }
 
-  async store({ request, auth }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const data = request.only(['name', 'description'])
-    const project = await Project.create({ ...data, userId: user.id })
-    return project
+  async show({ params, response }: HttpContext) {
+    const project = await Project.findOrFail(params.id)
+    return response.json(project)
   }
 
-  async show({ params, auth }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const project = await Project.query()
-      .where('id', params.id)
-      .where('user_id', user.id)
-      .firstOrFail()
-    return project
-  }
-
-  async update({ params, request, auth }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const project = await Project.query()
-      .where('id', params.id)
-      .where('user_id', user.id)
-      .firstOrFail()
-
+  async update({ params, request, response }: HttpContext) {
+    const project = await Project.findOrFail(params.id)
     const data = request.only(['name', 'description'])
     project.merge(data)
     await project.save()
-
-    return project
+    return response.json(project)
   }
 
-  async destroy({ params, auth }: HttpContext) {
-    const user = auth.getUserOrFail()
-    const project = await Project.query()
-      .where('id', params.id)
-      .where('user_id', user.id)
-      .firstOrFail()
-
+  async destroy({ params, response }: HttpContext) {
+    const project = await Project.findOrFail(params.id)
     await project.delete()
-    return { message: 'Project deleted successfully' }
+    return response.noContent()
   }
 }

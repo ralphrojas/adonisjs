@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, computed } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Project from './project.js'
 import { beforeSave } from '@adonisjs/lucid/orm'
 import hash from '@adonisjs/core/services/hash'
